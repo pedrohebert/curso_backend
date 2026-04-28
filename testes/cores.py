@@ -1,56 +1,4 @@
-
-"""
-    db = {
-        1: {
-            "title": "",
-            "description": "",
-            "status" : ""
-        },
-        2: {
-            "title": "",
-            "description": "",
-            "status" : ""
-        }
-        3: {
-            "title": "",
-            "description": "",
-            "status" : ""
-        }
-    }
-
-    db: dict[int, dict[str, str]]
-
-
-    atual:
-
-    db: list[dict[ str, int | str]]
-
-    db = [
-        {
-            "id" : 0,
-            "title": "",
-            "description": "",
-            "status" : ""
-        },
-        {
-            "id" : 1,
-            "title": "",
-            "description": "",
-            "status" : ""
-        },
-        {
-            "id" : 2,
-            "title": "",
-            "description": "",
-            "status" : ""
-        },
-    ]
-
-"""
-
-
-
-from time import clock_getres, sleep
+from time import sleep
 
 def color(r:int = 0, g: int = 0, b:int = 0,*, fundo = False, reset= False):
     if reset: return f"\033[0m"
@@ -58,24 +6,6 @@ def color(r:int = 0, g: int = 0, b:int = 0,*, fundo = False, reset= False):
     return f"\033[{plano};2;{r};{g};{b}m"
 
 
-
-#for ID in range(0, 256):
-#    print(f"\033[48;5;{ID}m testes \033[0m")
-
-"""for r in range(0,256):
-    print(f"{color(r,0,0)} testes {color(reset=True)}", end="")
-
-print(color(reset=True), "verde")
-
-for g in range(0, 256):
-    print(f"{color(0,g,0,)} testes {color(reset=True)}", end="")
-
-print(color(reset=True), "azul")
-
-
-for b in range(0, 256):
-    print(f"{color(0,0,b,)} testes {color(reset=True)}", end="")
-print(color(reset=True))"""
 
 cores = range(0,256)
 rev_cores = list(reversed(cores))
