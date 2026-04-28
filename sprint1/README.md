@@ -41,15 +41,15 @@ Cada tarefa segue o seguinte formato:
 ```
 ## como executar 
 
-```cmd
+```bash
 git clone https://github.com/pedrohebert/curso_backend.git
-cd sprint1
+cd curso_backend/sprint1
 python main.py
 ```
+
 > [!NOTE]  
 > verifique se a versão instalada do python é 3.12+ com:
-> ``` CMD
-> $python --version
-> Python 3.12.10
+> ``` bash
+> python --version
 > ```
 
