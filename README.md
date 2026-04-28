@@ -34,8 +34,3 @@ Servir como um ambiente livre para testes rápidos e validação de conceitos an
 
 Este repositório está em constante evolução, podendo receber novas funcionalidades, melhorias e novos projetos ao longo do tempo.
 
----
-
-## 📄 Licença
-
-Este projeto é de uso pessoal e para fins educacionais.
