@@ -170,7 +170,7 @@ class Task_gen:
             "digite o id da task: ",int
             )
 
-    def optional_input_status(self):
+    def optional_input_status(self) -> str | None:
         opc: dict[int, str] = {
             1: "To Do",
             2: "in progress",
@@ -193,7 +193,7 @@ class Task_gen:
             
             print("opcao invalida ensira novamente\n")
 
-    def required_input_status(self):
+    def required_input_status(self) -> str:
 
         opc: dict[int, str] = {
             1: "To Do",
@@ -329,7 +329,12 @@ def main():
 
 if __name__ == '__main__':
     clear()
-    main()
+    try: 
+        main()
+    except (KeyboardInterrupt, EOFError):
+        print("\n\nsaindo...")
+        exit()
+    
 
 """
 class testes:
