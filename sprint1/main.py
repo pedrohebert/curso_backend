@@ -29,16 +29,21 @@ class CRUD:
             desc_width = max(max(len(task["description"]), len("DESCRIPTION")), desc_width)
             status_width = max(max(len(task["status"]) , len("STATUS")), status_width)
 
-        print(f"{'ID':<5}{'TITLE':<{title_width}} {'DESCRIPTION':<{desc_width}} {'STATUS':<{status_width}}")
-        print("-" * 55)
+        print(
+            f"{'ID':<5}"
+            f"{'TITLE':<{title_width}} "
+            f"{'DESCRIPTION':<{desc_width}} "
+            f"{'STATUS':<{status_width}} "
+        )
+        print("-" * sum([title_width, desc_width, status_width]))
 
 
         for task_id, task in self.db.items():
             print(
                 f"{task_id:<5} "
-                f"{task['title']:<{title_width}} "
-                f"{task['description']:<{desc_width}} "
-                f"{task['status']:<{status_width}} " 
+                f"{task['title']:<{title_width}}"
+                f"{task['description']:<{desc_width}}"
+                f"{task['status']:<{status_width}}" 
             )
     
     def get_task_by_id(self, id: int) -> dict[str, str] | None:
@@ -272,82 +277,71 @@ class Task_gen:
 def clear():
     os.system("cls" if os.name == "nt" else "clear")
 
-def menu() -> int:
-    print("-" * 50)
-    print("[1] - criar")
-    print("[2] - listar")
-    print("[3] - atualizar")
-    print("[4] - deletar")
-    print("[0] - sair")
-    return Input_handler.required_input("escolha uma opcao [0-4]: ", int)
+
+class Main():
+    
+    def __init__(self) -> None:
+        self.task_gen = Task_gen()
+        self.crud = CRUD()
+
+    def menu(self) -> int:
+        print("-" * 50)
+        print("[1] - criar")
+        print("[2] - listar")
+        print("[3] - atualizar")
+        print("[4] - deletar")
+        print("[0] - sair")
+        return Input_handler.required_input("escolha uma opcao [0-4]: ", int)
             
-def main():
+    def task_create(self) -> None:
+        task = self.task_gen.input_create_task()
+        id:int = self.task_gen.get_new_id()
+        if self.crud.create_task(id, task):
+            print("ERRO: não foi possivel criar esse item")
+
+    def task_list(self) -> None:
+        self.crud.list_all_tesks()
+        input()
     
-    crud: CRUD = CRUD()
-    task_gen: Task_gen = Task_gen()
-   
-    
-    while (True):
-        opc: int = menu()
+    def task_update(self) -> None:
+        id = self.task_gen.input_id()
+        task = self.crud.get_task_by_id(id)
 
-        clear()
-        match opc :
-            case 1: #create
+        if task != None:
+            updated_task = self.task_gen.input_update_task(task.copy())
+            if self.crud.update_task( id , updated_task) == 1:
+                print("ERRO: não foi possivel atualizar esse item")
+        else:
+            print("ERRO: não foi possivel encontrar esse item")
 
-                task = task_gen.input_create_task()
-                id:int = task_gen.get_new_id()
-                if crud.create_task(id, task):
-                    print("ERRO: não foi possivel criar esse item")
+    def task_delete(self) -> None:
+        id = self.task_gen.input_id()
+        if self.crud.delete_task(id) == 1:
+            print("ERRO: não foi possivel deletar esse item")
 
-            case 2: #list
-                crud.list_all_tesks()
-                input()
+    def main(self):
+        funcs = {
+            1: self.task_create,
+            2: self.task_list,
+            3: self.task_update,
+            4: self.task_delete,
+            0: exit
+        }
 
-            case 3: #update
-                id = task_gen.input_id()
-                task = crud.get_task_by_id(id)
+        while True:
+            opc = self.menu()
+            clear()
 
-                if task != None:
-                    updated_task = task_gen.input_update_task(task.copy())
-                    if crud.update_task( id , updated_task) == 1:
-                        print("ERRO: não foi possivel atualizar esse item")
-                else:
-                    print("ERRO: não foi possivel encontrar esse item")
-
-            case 4:  #delete
-                id = task_gen.input_id()
-                if crud.delete_task(id) == 1:
-                    print("ERRO: não foi possivel deletar esse item")
-
-            case 0: #exit
-                exit(0)
-
-            case _: #defalt
-                print("opcao invalida\n")
-
+            if opc in funcs:
+                funcs[opc]()
+        
 
 
 if __name__ == '__main__':
     clear()
     try: 
-        main()
+        Main().main()
     except (KeyboardInterrupt, EOFError):
         print("\n\nsaindo...")
         exit()
     
-
-"""
-class testes:
-    num:int
-    stg: str
-
-    def __init__(self, num, stg) -> None:
-        self.num1 = num
-        self.stg = stg
-
-a = testes(1, "testes")
-b = testes()
-b.num = 1
-b.stg = "testes"
-
-"""
