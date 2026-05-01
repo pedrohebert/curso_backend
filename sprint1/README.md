@@ -41,9 +41,30 @@ Cada tarefa segue o seguinte formato:
 ```
 ## como executar 
 
+#### clone o repositorio 
 ```bash
 git clone https://github.com/pedrohebert/curso_backend.git
 cd curso_backend/sprint1
+```
+
+#### crie e ative o habiente virtual
+
+```bash
+python -m venv .venv
+
+# ou com uv
+uv venv
+
+# ativar ambiente (Linux/macOS)
+source .venv/bin/activate
+
+# ativar ambiente (Windows)
+.venv\Scripts\activate
+```
+
+#### executar
+
+```bash
 python main.py
 ```
 
