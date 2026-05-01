@@ -1,5 +1,5 @@
 import os
-from typing import Callable
+from typing import Callable, Self
 
 
 
@@ -19,27 +19,9 @@ class CRUD:
         return 0
 
 
-    def list_all_tesks(self) -> None:
-        title_width: int = 0
-        desc_width: int = 0
-        status_width: int = 0
-
-        for task in self.db.values():
-            title_width = max(max(len(task["title"]), len("TITLE")), title_width)
-            desc_width = max(max(len(task["description"]), len("DESCRIPTION")), desc_width)
-            status_width = max(max(len(task["status"]) , len("STATUS")), status_width)
-
-        print(f"{'ID':<5}{'TITLE':<{title_width}} {'DESCRIPTION':<{desc_width}} {'STATUS':<{status_width}}")
-        print("-" * 55)
-
-
-        for task_id, task in self.db.items():
-            print(
-                f"{task_id:<5} "
-                f"{task['title']:<{title_width}} "
-                f"{task['description']:<{desc_width}} "
-                f"{task['status']:<{status_width}} " 
-            )
+    def get_all_tesks(self) -> list[tuple[int, dict[str, str]]]:
+        return list(self.db.items())
+        
     
     def get_task_by_id(self, id: int) -> dict[str, str] | None:
         return self.db.get(id)
@@ -153,6 +135,29 @@ class ui_handler:
         for key, value in task.items():
             valor = value if value else "..."
             print(f"{key:<{key_width}} {valor:<{task_width}}")
+
+    @staticmethod
+    def print_all_tesks(tesks: list[tuple[int, dict[str,str]]]):
+        title_width: int = 0
+        desc_width: int = 0
+        status_width: int = 0
+
+        for id,task in tesks:
+            title_width = max(max(len(task["title"]), len("TITLE")), title_width)
+            desc_width = max(max(len(task["description"]), len("DESCRIPTION")), desc_width)
+            status_width = max(max(len(task["status"]) , len("STATUS")), status_width)
+
+        print(f"{'ID':<5} | {'TITLE':<{title_width}} | {'DESCRIPTION':<{desc_width}} | {'STATUS':<{status_width}}")
+        print("-" * 55)
+
+
+        for task_id, task in tesks:
+            print(
+                f"{task_id:<5} | "
+                f"{task['title']:<{title_width}} | "
+                f"{task['description']:<{desc_width}} | "
+                f"{task['status']:<{status_width}} | " 
+            )
 
 
 
@@ -300,7 +305,7 @@ def main():
                     print("ERRO: não foi possivel criar esse item")
 
             case 2: #list
-                crud.list_all_tesks()
+                ui_handler.print_all_tesks(crud.get_all_tesks())
                 input()
 
             case 3: #update
