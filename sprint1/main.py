@@ -334,6 +334,8 @@ class Main():
 
             if opc in funcs:
                 funcs[opc]()
+            else:
+                print("opção invalida")
         
 
 
