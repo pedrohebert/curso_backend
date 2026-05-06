@@ -1,6 +1,6 @@
-from fastapi import FastAPI
-from typing import Sequence, TypedDict
+from typing import TypedDict
 
+from fastapi import FastAPI
 from fastapi.exceptions import HTTPException
 
 app = FastAPI()
