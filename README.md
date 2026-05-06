@@ -14,6 +14,13 @@ Contém um projeto em Python que simula um sistema **CRUD (Create, Read, Update,
 #### Objetivo:
 Explorar conceitos fundamentais de manipulação de dados, estruturação de código e simulação de persistência sem uso de banco de dados real.
 
+
+### [sprint 3](sprint3/README.md)
+comtém um projeto em python que cria um sistema CRUD completo com fastApi e armazenamento em memória
+
+#### Objetivo
+explorar o framework fastApi e refoçar manupulação de dados e padrões web
+
 ---
 
 ### [testes](testes/README.md)
