@@ -63,3 +63,11 @@ async def update_task(id:int,update: UpdateTask) -> PublicTask:
     db[id].update(up)
 
     return {**db[id], "id":id}
+
+@app.delete("/{task_id}")
+async def delete_task(task_id:int) -> PublicTask:
+    if task_id not in db:
+        raise HTTPException(status_code=404, detail="task not fould")
+
+    deleted = db.pop(task_id)
+    return {**deleted, "id": task_id}
