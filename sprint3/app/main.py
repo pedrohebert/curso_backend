@@ -59,7 +59,7 @@ async def update_task(id:int,update: UpdateTask) -> PublicTask:
     if id not in db:
         raise HTTPException(status_code=404, detail="task not fould")
 
-    for k,v in db[id].items():
-        db[id][k] = update.get(k) if update.get(k) is not None else v
+    up = list((k,v) for k,v in update.items() if v is not None)
+    db[id].update(up)
 
     return {**db[id], "id":id}
