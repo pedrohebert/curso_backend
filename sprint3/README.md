@@ -1,8 +1,22 @@
+## Sumario 
+
+- [Dados](#dados)  
+    - [Task](#task)  
+    - [Pulbic Task](#pulbic-task)
+    - [Update Task](#update-task)   
++ [Endpoints](#endpoints)  
+    - [GET all](#get-all)
+    - [GET por id](#get-id)
+    - [POST/criar Task](#post-)
+    - [PUT/atualizar Task](#put-id)
+    - [DELETE/deletar Task](#delete-id)  
+* [como executar o projeto](#como-executar-o-projeto)
+
 ## sobre
 
-esse projeto é um conjunto de api para armazenar em memória tasks.
+esse projeto é um conjunto de api em fastApi para armazenar em memória tasks.
 
-### dados
+### Dados
 #### Task
 ```json
 {
@@ -24,6 +38,8 @@ retorno comum
 ```
 
 #### update task
+utilizados para atualizar tesks
+
 campos null ou não presentes não serão atualizados
 ```json
 {
@@ -33,7 +49,7 @@ campos null ou não presentes não serão atualizados
 }
 ```
 ---
-### APIs
+### Endpoints
 
 #### GET "/all"
 retorna todas as tasks armazenadas como uma lista de public_task
@@ -125,7 +141,7 @@ para mais informação, execute o projeto e acesse:
 - Redoc: http://127.0.0.1:8000/redoc
 
 ---
-## como executar o projeto
+## Como executar o projeto
 
 ### pre-requisitos
 - python 3.12+
@@ -164,7 +180,7 @@ Windows
 ```
 
 4. Executar o servidor
-
+3
 ```bash
 uv run fastapi dev app/main.py
 #Ou, simplesmente:
