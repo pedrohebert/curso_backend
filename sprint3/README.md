@@ -1,0 +1,219 @@
+## sobre
+
+esse projeto é um conjunto de api para armazenar em memória tasks.
+
+### dados
+#### Task
+```json
+{
+  "title": "string"
+  "description": "string"
+  "status" : "string"
+}
+```
+#### pulbic Task
+retorno comum
+
+```json
+{
+  "title": "string"
+  "description": "string"
+  "status" : "string"
+  "id": int
+}
+```
+
+#### update task
+campos null ou não presentes não serão atualizados
+```json
+{
+  "title": "string" ou null
+  "description": "string" ou null
+  "status" : "string" ou null
+}
+```
+---
+### APIs
+
+#### GET "/all"
+retorna todas as tasks armazenadas como uma lista de public_task
+exemplo de resposta:
+```json
+[
+  {
+    "title": "string"
+    "description": "string"
+    "status" : "string"
+    "id": int
+  }
+]
+```
+
+#### GET "/{id}"
+retorna a task correspondete ao id no formato public_task ou um erro 404 caso id não exista
+
+exemplo de resposta:
+```json
+{
+  "title": "string"
+  "description": "string"
+  "status" : "string"
+  "id": int
+}
+```
+
+#### POST "/"
+cria uma nova task, recebe no body um Task e responde um public_task
+exemplo de body:
+```json
+{
+  "title": "string"
+  "description": "string"
+  "status" : "string"
+}
+```
+exemplo de resposta:
+
+```json
+{
+  "title": "string"
+  "description": "string"
+  "status" : "string"
+  "id": int
+}
+```
+
+#### PUT "/{id}"
+atualiza uma task existente, recebe um update_taskno body e retorna um public_task atualizado
+
+exemplo de body:
+```json
+{
+  "title": "string" ou null
+  "description": "string" ou null
+  "status" : "string" ou null
+}
+```
+exemplo de resposta:
+
+```json
+{
+  "title": "string"
+  "description": "string"
+  "status" : "string"
+  "id": int
+}
+```
+
+#### DELETE "/{id}"
+deleta um task existente, retorna a public_task deletada
+
+exemplo de resposta:
+```json
+{
+  "title": "string"
+  "description": "string"
+  "status" : "string"
+  "id": int
+}
+```
+
+### extra
+
+para mais informação, execute o projeto e acesse:
+- Documentação interativa (Swagger): http://127.0.0.1:8000/docs
+- Redoc: http://127.0.0.1:8000/redoc
+
+---
+## como executar o projeto
+
+### pre-requisitos
+- python 3.12+
+- git
+---
+
+1. clone o repositorio 
+```bash
+git clone https://github.com/pedrohebert/curso_backend.git
+cd curso_backend/sprint3
+```
+---
+### crie e ative o habiente virtual
+
+#### uv (recomendado)
+
+2. Criar ambiente virtual e instalar dependências
+```bash
+uv venv
+uv sync
+```
+3. Ativar o ambiente
+
+Linux / Mac
+
+```bash
+source ./.venv/bin/activate
+#fish
+source ./.venv/bin/activate.fish 
+```
+
+Windows
+
+```bash
+.venv\Scripts\activate
+```
+
+4. Executar o servidor
+
+```bash
+uv run fastapi dev app/main.py
+#Ou, simplesmente:
+festapi dev app/main.py
+```
+---
+#### Executando com pip + venv
+
+método tradicional:
+
+2. Criar ambiente virtual
+```bash
+python -m venv .venv
+```
+3. Ativar o ambiente
+
+Linux / Mac
+
+```bash
+source ./.venv/bin/activate
+#fish
+source ./.venv/bin/activate.fish 
+```
+
+Windows
+
+```bash
+.venv\Scripts\activate
+```
+
+3. Instalar dependências
+
+Se estiver usando requirements.txt:
+```bash
+
+pip install -r requirements.txt
+```
+
+Ou, caso use pyproject.toml:
+
+```bash
+pip install .
+```
+
+4. Executar o servidor  
+
+
+```bash
+uv run fastapi dev app/main.py
+#Ou, simplesmente:
+festapi dev app/main.py
+```
