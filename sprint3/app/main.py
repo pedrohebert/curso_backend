@@ -77,7 +77,7 @@ async def update_task(task_id: int, update: UpdateTask) -> PublicTask:
 
 
 @app.delete("/{task_id}")
-async def delete_task(task_id: int) -> PublicTask :
+async def delete_task(task_id: int) -> PublicTask:
     if task_id not in db:
         raise HTTPException(status_code=404, detail="task not fould")
 
