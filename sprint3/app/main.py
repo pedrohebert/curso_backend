@@ -1,3 +1,4 @@
+from enum import Enum
 from typing import TypedDict
 
 from fastapi import FastAPI
@@ -5,11 +6,16 @@ from fastapi.exceptions import HTTPException
 
 app = FastAPI()
 
+class Status(Enum):
+    TO_DO = "TO DO"
+    PROGRESS =  "IN PROGRESS"
+    COMPLETED = "COMPLETED"
+
 
 class Task(TypedDict):
     title: str
     description: str
-    status: str
+    status: Status
 
 class PublicTask(Task):
     id:int
@@ -17,7 +23,7 @@ class PublicTask(Task):
 class UpdateTask(TypedDict, total=False):
     title: str | None
     description: str | None
-    status: str | None
+    status: Status | None
 
 
 db:dict[int, Task] = {}
