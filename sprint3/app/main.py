@@ -37,7 +37,7 @@ def get_new_id() -> int:
     return next(_id)
 
 
-@app.post("/")
+@app.post("/", status_code=201)
 async def create_task(task: Task) -> PublicTask:
     id = get_new_id()
     db[id] = task
@@ -54,7 +54,7 @@ async def get_by_id(task_id:int) -> PublicTask:
         raise HTTPException(status_code=404, detail="task not fould")
     return {**db[task_id], "id":task_id}
 
-@app.put("/")
+@app.patch("/")
 async def update_task(id:int,update: UpdateTask) -> PublicTask:
     if id not in db:
         raise HTTPException(status_code=404, detail="task not fould")
