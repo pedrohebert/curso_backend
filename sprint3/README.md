@@ -22,7 +22,7 @@ esse projeto é um conjunto de api em fastApi para armazenar em memória tasks.
 {
   "title": "string"
   "description": "string"
-  "status" : "string"
+  "status": "TO DO" | "IN PROGRESS" | "COMPLETED"
 }
 ```
 #### pulbic Task
@@ -32,7 +32,7 @@ retorno comum
 {
   "title": "string"
   "description": "string"
-  "status" : "string"
+  "status": "TO DO" | "IN PROGRESS" | "COMPLETED"
   "id": int
 }
 ```
@@ -43,11 +43,12 @@ utilizados para atualizar tesks
 campos null ou não presentes não serão atualizados
 ```json
 {
-  "title": "string" ou null
-  "description": "string" ou null
-  "status" : "string" ou null
+  "title": "string" | null
+  "description": "string" | null
+  "status": "TO DO" | "IN PROGRESS" | "COMPLETED" | null
 }
 ```
+
 ---
 ### Endpoints
 
@@ -59,7 +60,7 @@ exemplo de resposta:
   {
     "title": "string"
     "description": "string"
-    "status" : "string"
+    "status": "TO DO" | "IN PROGRESS" | "COMPLETED"
     "id": int
   }
 ]
@@ -73,7 +74,7 @@ exemplo de resposta:
 {
   "title": "string"
   "description": "string"
-  "status" : "string"
+  "status": "TO DO" | "IN PROGRESS" | "COMPLETED"
   "id": int
 }
 ```
@@ -85,7 +86,7 @@ exemplo de body:
 {
   "title": "string"
   "description": "string"
-  "status" : "string"
+  "status": "TO DO" | "IN PROGRESS" | "COMPLETED"
 }
 ```
 exemplo de resposta:
@@ -94,7 +95,7 @@ exemplo de resposta:
 {
   "title": "string"
   "description": "string"
-  "status" : "string"
+  "status": "TO DO" | "IN PROGRESS" | "COMPLETED"
   "id": int
 }
 ```
@@ -107,9 +108,9 @@ campos null ou não presentes no Body não serão atualizados
 exemplo de body:
 ```json
 {
-  "title": "string" ou null
-  "description": "string" ou null
-  "status" : "string" ou null
+  "title": "string" | null
+  "description": "string" | null
+  "status": "TO DO" | "IN PROGRESS" | "COMPLETED" | null
 }
 ```
 exemplo de resposta:
@@ -118,7 +119,7 @@ exemplo de resposta:
 {
   "title": "string"
   "description": "string"
-  "status" : "string"
+  "status": "TO DO" | "IN PROGRESS" | "COMPLETED"
   "id": int
 }
 ```
@@ -131,7 +132,7 @@ exemplo de resposta:
 {
   "title": "string"
   "description": "string"
-  "status" : "string"
+  "status": "TO DO" | "IN PROGRESS" | "COMPLETED"
   "id": int
 }
 ```
