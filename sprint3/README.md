@@ -99,8 +99,10 @@ exemplo de resposta:
 }
 ```
 
-#### PUT "/{id}"
+#### PATCH "/{id}"
 atualiza uma task existente, recebe um update_taskno body e retorna um public_task atualizado
+
+campos null ou não presentes no Body não serão atualizados
 
 exemplo de body:
 ```json
