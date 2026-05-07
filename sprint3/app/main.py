@@ -48,39 +48,38 @@ def get_new_id() -> int:
 
 @app.post("/", status_code=201)
 async def create_task(task: Task) -> PublicTask:
-    id = get_new_id()
-    db[id] = task
-    return {**task, "id": id}
+    new_id = get_new_id()
+    db[new_id] = task
+    return PublicTask(**db[new_id], id=new_id)
 
 
 @app.get("/all")
 async def get_all_task() -> list[PublicTask]:
-    saida: list[PublicTask] = [{**v, "id": k} for k, v in db.items()]
-    return saida
+    return [PublicTask(**v, id=k) for k, v in db.items()]
 
 
 @app.get("/{task_id}")
 async def get_by_id(task_id: int) -> PublicTask:
     if task_id not in db:
         raise HTTPException(status_code=404, detail="task not fould")
-    return {**db[task_id], "id": task_id}
+    return PublicTask(**db[task_id], id=task_id)
 
 
 @app.patch("/")
-async def update_task(id: int, update: UpdateTask) -> PublicTask:
-    if id not in db:
+async def update_task(task_id: int, update: UpdateTask) -> PublicTask:
+    if task_id not in db:
         raise HTTPException(status_code=404, detail="task not fould")
 
     up = list((k, v) for k, v in update.items() if v is not None)
-    db[id].update(up)
+    db[task_id].update(up)
 
-    return {**db[id], "id": id}
+    return PublicTask(**db[task_id], id=task_id)
 
 
 @app.delete("/{task_id}")
-async def delete_task(task_id: int) -> PublicTask:
+async def delete_task(task_id: int) -> PublicTask :
     if task_id not in db:
         raise HTTPException(status_code=404, detail="task not fould")
 
     deleted = db.pop(task_id)
-    return {**deleted, "id": task_id}
+    return PublicTask(**deleted, id=task_id)
