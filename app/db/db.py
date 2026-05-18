@@ -1,7 +1,7 @@
 from app.models.TaskModel import Task, UpdateTask
 
 
-def __id_gen():
+def id_gen():
     id = 0
     while True:
         yield id
@@ -10,7 +10,7 @@ def __id_gen():
 
 class DB:
     __db: dict[int, Task] = {}
-    __id = __id_gen()
+    __id = id_gen()
 
     def get_new_id(self) -> int:
         return next(self.__id)
