@@ -1,36 +1,29 @@
-# 📦 Repositório Pessoal
+# Repositório Pessoal
 
 Este repositório reúne projetos e experimentos desenvolvidos com o objetivo de aprendizado, prática e exploração de conceitos em programação.
 
-## 📁 Estrutura do Repositório
+## Estrutura do Repositório
 
 Atualmente, o repositório está organizado nas seguintes pastas:
 
-### 🚀 [sprint 1](sprint1/README.md)
+### [sprint 1](sprint1/README.md)
 
 Contém um projeto em Python que simula um sistema **CRUD (Create, Read, Update, Delete)** utilizando um banco de dados em memória.
 
 
-#### 🧠 Objetivo:
+#### Objetivo:
 Explorar conceitos fundamentais de manipulação de dados, estruturação de código e simulação de persistência sem uso de banco de dados real.
 
 ---
+### [sprint 3](https://github.com/pedrohebert/curso_backend/tree/sprint3)
 
-### 🧪 [testes](testes/README.md)
+transfere o **CRUD** do sprint 1 para o ambiente web.
 
-Pasta dedicada a experimentos diversos realizados durante o processo de aprendizado.
+#### objetivos 
 
-#### 📌 Conteúdo:
-- Testes de funcionalidades
-- Exploração de bibliotecas
-- Protótipos e ideias iniciais
+lidar com requisições HTTP.
 
-#### 🧠 Objetivo:
-Servir como um ambiente livre para testes rápidos e validação de conceitos antes de implementação em projetos mais estruturados.
-
-
-
-## 📌 Observações
+---
+## Observações
 
 Este repositório está em constante evolução, podendo receber novas funcionalidades, melhorias e novos projetos ao longo do tempo.
-
