@@ -16,7 +16,7 @@ async def create_task(new_task: Task) -> PublicTask:
     return PublicTask(**new_task.model_dump(), id=task_id)
 
 
-@app.get("/all", status_code=200)
+@app.get("/", status_code=200)
 async def get_all_task() -> list[PublicTask]:
     return [PublicTask(**v.model_dump(), id=k) for k, v in db.get_all().items()]
 
