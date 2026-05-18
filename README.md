@@ -1,42 +1,238 @@
-# Repositório Pessoal
+## Sumario 
 
-Este repositório reúne projetos e experimentos desenvolvidos com o objetivo de aprendizado, prática e exploração de conceitos em programação.
+- [Dados](#dados)  
+    - [Task](#task)  
+    - [Pulbic Task](#pulbic-task)
+    - [Update Task](#update-task)   
++ [Endpoints](#endpoints)  
+    - [GET all](#get-all)
+    - [GET por id](#get-id)
+    - [POST/criar Task](#post-)
+    - [PUT/atualizar Task](#put-id)
+    - [DELETE/deletar Task](#delete-id)  
+* [como executar o projeto](#como-executar-o-projeto)
 
-## Estrutura do Repositório
+## sobre
 
-Atualmente, o repositório está organizado nas seguintes pastas:
+esse projeto é um conjunto de api em fastApi para armazenar em memória tasks.
 
-### [sprint 1](sprint1/README.md)
+### Dados
+#### Task
+```json
+{
+  "title": "string"
+  "description": "string"
+  "status": "TO DO" | "IN PROGRESS" | "COMPLETED"
+}
+```
+#### pulbic Task
+retorno comum
 
-Contém um projeto em Python que simula um sistema **CRUD (Create, Read, Update, Delete)** utilizando um banco de dados em memória.
+```json
+{
+  "title": "string"
+  "description": "string"
+  "status": "TO DO" | "IN PROGRESS" | "COMPLETED"
+  "id": int
+}
+```
 
+#### update task
+utilizados para atualizar tesks
 
-#### Objetivo:
-Explorar conceitos fundamentais de manipulação de dados, estruturação de código e simulação de persistência sem uso de banco de dados real.
-
-
-### [sprint 3](sprint3/README.md)
-comtém um projeto em python que cria um sistema CRUD completo com fastApi e armazenamento em memória
-
-#### Objetivo
-explorar o framework fastApi e refoçar manupulação de dados e padrões web
+campos null ou não presentes não serão atualizados
+```json
+{
+  "title": "string" | null
+  "description": "string" | null
+  "status": "TO DO" | "IN PROGRESS" | "COMPLETED" | null
+}
+```
 
 ---
+### Endpoints
 
-### [testes](testes/README.md)
+#### GET "/all"
+retorna todas as tasks armazenadas como uma lista de public_task
+exemplo de resposta:
+```json
+[
+  {
+    "title": "string"
+    "description": "string"
+    "status": "TO DO" | "IN PROGRESS" | "COMPLETED"
+    "id": int
+  }
+]
+```
 
-Pasta dedicada a experimentos diversos realizados durante o processo de aprendizado.
+#### GET "/{id}"
+retorna a task correspondete ao id no formato public_task ou um erro 404 caso id não exista
 
-#### Conteúdo:
-- Testes de funcionalidades
-- Exploração de bibliotecas
-- Protótipos e ideias iniciais
+exemplo de resposta:
+```json
+{
+  "title": "string"
+  "description": "string"
+  "status": "TO DO" | "IN PROGRESS" | "COMPLETED"
+  "id": int
+}
+```
 
-#### Objetivo:
-Servir como um ambiente livre para testes rápidos e validação de conceitos antes de implementação em projetos mais estruturados.
+#### POST "/"
+cria uma nova task, recebe no body um Task e responde um public_task
+exemplo de body:
+```json
+{
+  "title": "string"
+  "description": "string"
+  "status": "TO DO" | "IN PROGRESS" | "COMPLETED"
+}
+```
+exemplo de resposta:
+
+```json
+{
+  "title": "string"
+  "description": "string"
+  "status": "TO DO" | "IN PROGRESS" | "COMPLETED"
+  "id": int
+}
+```
+
+#### PATCH "/{id}"
+atualiza uma task existente, recebe um update_taskno body e retorna um public_task atualizado
+
+campos null ou não presentes no Body não serão atualizados
+
+exemplo de body:
+```json
+{
+  "title": "string" | null
+  "description": "string" | null
+  "status": "TO DO" | "IN PROGRESS" | "COMPLETED" | null
+}
+```
+exemplo de resposta:
+
+```json
+{
+  "title": "string"
+  "description": "string"
+  "status": "TO DO" | "IN PROGRESS" | "COMPLETED"
+  "id": int
+}
+```
+
+#### DELETE "/{id}"
+deleta um task existente, retorna a public_task deletada
+
+exemplo de resposta:
+```json
+{
+  "title": "string"
+  "description": "string"
+  "status": "TO DO" | "IN PROGRESS" | "COMPLETED"
+  "id": int
+}
+```
+
+### extra
+
+para mais informação, execute o projeto e acesse:
+- Documentação interativa (Swagger): http://127.0.0.1:8000/docs
+- Redoc: http://127.0.0.1:8000/redoc
+
+---
+## Como executar o projeto
+
+### pre-requisitos
+- python 3.12+
+- git
+---
+
+1. clone o repositorio 
+```bash
+git clone https://github.com/pedrohebert/curso_backend.git
+cd curso_backend/sprint3
+```
+---
+### crie e ative o habiente virtual
+
+#### uv (recomendado)
+
+2. Criar ambiente virtual e instalar dependências
+```bash
+uv venv
+uv sync
+```
+3. Ativar o ambiente
+
+Linux / Mac
+
+```bash
+source ./.venv/bin/activate
+#fish
+source ./.venv/bin/activate.fish 
+```
+
+Windows
+
+```bash
+.venv\Scripts\activate
+```
+
+4. Executar o servidor
+3
+```bash
+uv run fastapi dev app/main.py
+#Ou, simplesmente:
+festapi dev app/main.py
+```
+---
+#### Executando com pip + venv
+
+método tradicional:
+
+2. Criar ambiente virtual
+```bash
+python -m venv .venv
+```
+3. Ativar o ambiente
+
+Linux / Mac
+
+```bash
+source ./.venv/bin/activate
+#fish
+source ./.venv/bin/activate.fish 
+```
+
+Windows
+
+```bash
+.venv\Scripts\activate
+```
+
+3. Instalar dependências
+
+Se estiver usando requirements.txt:
+```bash
+
+pip install -r requirements.txt
+```
+
+Ou, caso use pyproject.toml:
+
+```bash
+pip install .
+```
+
+4. Executar o servidor  
 
 
-
-## Observações
-
-Este repositório está em constante evolução, podendo receber novas funcionalidades, melhorias e novos projetos ao longo do tempo.
+```bash
+uv run fastapi dev app/main.py
+#Ou, simplesmente:
+festapi dev app/main.py
+```
