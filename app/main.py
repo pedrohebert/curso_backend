@@ -1,10 +1,7 @@
-from enum import Enum
-from typing import TypedDict
-
 from fastapi import FastAPI
 from fastapi.exceptions import HTTPException
 
-from app.models.TaskModel import Task, PublicTask, UpdateTask
+from app.models.TaskModel import PublicTask, Task, UpdateTask
 
 app = FastAPI()
 
