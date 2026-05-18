@@ -1,62 +1,45 @@
 from fastapi import FastAPI
 from fastapi.exceptions import HTTPException
 
+from app.db.db import DB
 from app.models.TaskModel import PublicTask, Task, UpdateTask
 
 app = FastAPI()
 
 
-db: dict[int, Task] = {}
-
-
-def id_gen():
-    id = 0
-    while True:
-        yield id
-        id += 1
-
-
-_id = id_gen()
-
-
-def get_new_id() -> int:
-    return next(_id)
+db: DB = DB()
 
 
 @app.post("/", status_code=201)
-async def create_task(task: Task) -> PublicTask:
-    new_id = get_new_id()
-    db[new_id] = task
-    return PublicTask(**task.model_dump(), id=new_id)
+async def create_task(new_task: Task) -> PublicTask:
+    task_id = db.create(new_task)
+    return PublicTask(**new_task.model_dump(), id=task_id)
 
 
-@app.get("/all")
+@app.get("/all", status_code=200)
 async def get_all_task() -> list[PublicTask]:
-    return [PublicTask(**v.model_dump(), id=k) for k, v in db.items()]
+    return [PublicTask(**v.model_dump(), id=k) for k, v in db.get_all().items()]
 
 
-@app.get("/{task_id}")
+@app.get("/{task_id}", status_code=200)
 async def get_by_id(task_id: int) -> PublicTask:
-    if task_id not in db:
-        raise HTTPException(status_code=404, detail="task not fould")
-    return PublicTask(**db[task_id].model_dump(), id=task_id)
+    task_db = db.get(task_id)
+    if task_db:
+        return PublicTask(**task_db.model_dump(), id=task_id)
+    raise HTTPException(status_code=404, detail="task not fould")
 
 
 @app.patch("/")
-async def update_task(task_id: int, update: UpdateTask) -> PublicTask:
-    if task_id not in db:
-        raise HTTPException(status_code=404, detail="task not fould")
-
-    db_task = update.model_dump(exclude_none=True, exclude_unset=True)
-    db[task_id].model_copy(update=db_task)
-    return PublicTask(**db[task_id].model_dump(), id=task_id)
+async def update_task(task_id: int, task_update: UpdateTask) -> PublicTask:
+    task_db = db.update(task_id, task_update)
+    if task_db:
+        return PublicTask(**task_db.model_dump(), id=task_id)
+    raise HTTPException(status_code=404, detail="task not fould")
 
 
 @app.delete("/{task_id}")
 async def delete_task(task_id: int) -> PublicTask:
-    if task_id not in db:
-        raise HTTPException(status_code=404, detail="task not fould")
-
-    deleted = db.pop(task_id)
-
-    return PublicTask(**deleted.model_dump(), id=task_id)
+    task_deleted = db.delete(task_id)
+    if task_deleted:
+        return PublicTask(**task_deleted.model_dump(), id=task_id)
+    raise HTTPException(status_code=404, detail="task not fould")
