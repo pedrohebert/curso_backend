@@ -5,7 +5,7 @@
     - [Pulbic Task](#pulbic-task)
     - [Update Task](#update-task)   
 + [Endpoints](#endpoints)  
-    - [GET all](#get-all)
+    - [GET all](#get-)
     - [GET por id](#get-id)
     - [POST/criar Task](#post-)
     - [PUT/atualizar Task](#put-id)
@@ -52,7 +52,7 @@ campos null ou não presentes não serão atualizados
 ---
 ### Endpoints
 
-#### GET "/all"
+#### GET "/"
 retorna todas as tasks armazenadas como uma lista de public_task
 exemplo de resposta:
 ```json
