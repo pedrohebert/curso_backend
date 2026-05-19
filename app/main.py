@@ -33,18 +33,9 @@ async def get_by_id(task_id: int) -> PublicTask:
 async def get_filtred(
     title: str | None = None, description: str | None = None, status: str | None = None
 ) -> list[PublicTask]:
-    tasks = await get_all_task()
     return [
-        task
-        for task in tasks
-        if (
-            (title is None or title in task.title)
-            and (
-                description is None
-                or (task.description is not None and description in task.description)
-            )
-            and (status is None or status in task.status.value)
-        )
+        PublicTask(**task.model_dump(), id=id)
+        for id, task in db.get_filtred(title, description, status).items()
     ]
 
 
