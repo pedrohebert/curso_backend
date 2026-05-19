@@ -16,7 +16,7 @@ async def create_task(new_task: Task) -> PublicTask:
     return PublicTask(**new_task.model_dump(), id=task_id)
 
 
-@app.get("/", status_code=200)
+@app.get("/all", status_code=200)
 async def get_all_task() -> list[PublicTask]:
     return [PublicTask(**v.model_dump(), id=k) for k, v in db.get_all().items()]
 
@@ -27,6 +27,25 @@ async def get_by_id(task_id: int) -> PublicTask:
     if task_db:
         return PublicTask(**task_db.model_dump(), id=task_id)
     raise HTTPException(status_code=404, detail="task not fould")
+
+
+@app.get("/")
+async def get_filtred(
+    title: str | None = None, description: str | None = None, status: str | None = None
+) -> list[PublicTask]:
+    tasks = await get_all_task()
+    return [
+        task
+        for task in tasks
+        if (
+            (title is None or title in task.title)
+            and (
+                description is None
+                or (task.description is not None and description in task.description)
+            )
+            and (status is None or status in task.status.value)
+        )
+    ]
 
 
 @app.patch("/")
