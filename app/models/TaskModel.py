@@ -9,8 +9,8 @@ class Status(Enum):
 
 class Task(BaseModel):
     title: str
-    description: str
-    status: Status
+    description: str | None = None
+    status: Status = Status.TO_DO
 
 
 class PublicTask(Task):
