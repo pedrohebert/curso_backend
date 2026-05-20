@@ -154,7 +154,8 @@ para mais informação, execute o projeto e acesse:
 1. clone o repositorio 
 ```bash
 git clone https://github.com/pedrohebert/curso_backend.git
-cd curso_backend/sprint3
+cd curso_backend
+git swicth sprint3
 ```
 ---
 ### crie e ative o habiente virtual
@@ -183,11 +184,9 @@ Windows
 ```
 
 4. Executar o servidor
-3
+
 ```bash
-uv run fastapi dev app/main.py
-#Ou, simplesmente:
-festapi dev app/main.py
+uv run uvicorn app.main:app --reload
 ```
 ---
 #### Executando com pip + venv
@@ -232,7 +231,10 @@ pip install .
 
 
 ```bash
-uv run fastapi dev app/main.py
-#Ou, simplesmente:
-festapi dev app/main.py
+uvicorn app.main:app --reload
 ```
+
+---
+5. acessando  
+o serviço será hospedado em:  
+http://127.0.0.1:8000/docs
