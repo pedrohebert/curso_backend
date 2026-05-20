@@ -5,8 +5,9 @@
     - [Pulbic Task](#pulbic-task)
     - [Update Task](#update-task)   
 + [Endpoints](#endpoints)  
-    - [GET all](#get-)
+    - [GET all](#get-all)
     - [GET por id](#get-id)
+    - [GET com filtros](#get-)
     - [POST/criar Task](#post-)
     - [PUT/atualizar Task](#put-id)
     - [DELETE/deletar Task](#delete-id)  
@@ -21,17 +22,20 @@ esse projeto é um conjunto de api em fastApi para armazenar em memória tasks.
 ```json
 {
   "title": "string"
-  "description": "string"
-  "status": "TO DO" | "IN PROGRESS" | "COMPLETED"
+  "description": "string" | null
+  "status": "TO DO" |"IN PROGRESS" | "COMPLETED" | null
 }
 ```
+>[!NOTE]
+> "TO DO" é o valor padrão pra status
+
 #### pulbic Task
 retorno comum
 
 ```json
 {
   "title": "string"
-  "description": "string"
+  "description": "string" | null
   "status": "TO DO" | "IN PROGRESS" | "COMPLETED"
   "id": int
 }
@@ -52,7 +56,7 @@ campos null ou não presentes não serão atualizados
 ---
 ### Endpoints
 
-#### GET "/"
+#### GET "/all"
 retorna todas as tasks armazenadas como uma lista de public_task
 exemplo de resposta:
 ```json
@@ -73,10 +77,29 @@ exemplo de resposta:
 ```json
 {
   "title": "string"
-  "description": "string"
+  "description": "string" | null
   "status": "TO DO" | "IN PROGRESS" | "COMPLETED"
   "id": int
 }
+```
+
+#### GET "/"
+parametros:
+- title: string
+- description: string
+- status: string  
+
+uma busca filtrada nos dados salvos, retorna uma lista de publicTasks
+
+```json
+[
+  {
+    "title": "string"
+    "description": "string"
+    "status": "TO DO" | "IN PROGRESS" | "COMPLETED"
+    "id": int
+  }
+]
 ```
 
 #### POST "/"
@@ -85,16 +108,20 @@ exemplo de body:
 ```json
 {
   "title": "string"
-  "description": "string"
-  "status": "TO DO" | "IN PROGRESS" | "COMPLETED"
+  "description": "string" | null
+  "status": "TO DO" | "IN PROGRESS" | "COMPLETED" | null
 }
 ```
+
+>[!NOTE]
+> caso o status não seja preenchido ou seja null será substitituido por "TO DO"
+
 exemplo de resposta:
 
 ```json
 {
   "title": "string"
-  "description": "string"
+  "description": "string" | null
   "status": "TO DO" | "IN PROGRESS" | "COMPLETED"
   "id": int
 }
@@ -118,7 +145,7 @@ exemplo de resposta:
 ```json
 {
   "title": "string"
-  "description": "string"
+  "description": "string" | null
   "status": "TO DO" | "IN PROGRESS" | "COMPLETED"
   "id": int
 }
@@ -131,7 +158,7 @@ exemplo de resposta:
 ```json
 {
   "title": "string"
-  "description": "string"
+  "description": "string" | null
   "status": "TO DO" | "IN PROGRESS" | "COMPLETED"
   "id": int
 }
