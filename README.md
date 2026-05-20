@@ -260,3 +260,8 @@ pip install .
 ```bash
 uvicorn app.main:app --reload
 ```
+
+---
+5. acessando  
+o serviço será hospedado em:  
+http://127.0.0.1:8000/docs
