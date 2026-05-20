@@ -24,6 +24,15 @@ transfere o **CRUD** do sprint 1 para o ambiente web.
 lidar com requisições HTTP.
 
 ---
+### [sprint 4](https://github.com/pedrohebert/curso_backend/tree/sprint4)
+
+evolução do **crud** do sprint 3 
+
+#### objetivos 
+
+validação dos dados com pydantic e modularização do sistema
+
+---
 ## Observações
 
 Este repositório está em constante evolução, podendo receber novas funcionalidades, melhorias e novos projetos ao longo do tempo.
