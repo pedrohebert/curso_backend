@@ -1,5 +1,7 @@
-from app.models.TaskModel import Task, UpdateTask
+from bson import ObjectId
 
+from app.models.TaskModel import DBTask, Task, UpdateTask
+from pymongo import MongoClient
 
 def id_gen():
     id = 0
@@ -7,52 +9,49 @@ def id_gen():
         yield id
         id += 1
 
+URI= "mongodb://root:12345@localhost:27017"
+client = MongoClient(URI)
+db=client["minha_api"]
+collection = db['tesks']
 
 class DB:
     __db: dict[int, Task] = {}
     __id = id_gen()
 
-    def get_new_id(self) -> int:
-        return next(self.__id)
 
-    def create(self, new_task: Task, /) -> int:
-        new_id = self.get_new_id()
-        self.__db[new_id] = new_task
-        return new_id
+    def create(self, new_task: Task, /) -> str:
+        result = collection.insert_one(new_task.model_dump())
+        return str(result.inserted_id)
 
-    def get_all(self) -> dict[int, Task]:
-        return self.__db
+    def get_all(self) -> list[DBTask]:
+        tasks: list[DBTask] = []
 
-    def get(self, task_id: int, /) -> Task | None:
-        return self.__db.get(task_id)
+        for t in collection.find():
+            t["_id"] = str(t["_id"])
+            tasks.append(DBTask.model_validate(t))
+        return tasks
+
+    def get(self, task_id: str, /) -> DBTask | None:
+        db_task = collection.find_one({"_id": ObjectId(task_id)})
+        if db_task is not None:
+            db_task["_id"] =  str(db_task["_id"])
+            db_task = DBTask.model_validate(db_task)
+        return db_task
 
     def get_filtred(
         self,
         title: str | None = None,
         description: str | None = None,
         status: str | None = None,
-    ):
-        return {
-            id: task
-            for id, task in self.get_all().items()
-            if (
-                (title is None or title in task.title)
-                and (
-                    description is None
-                    or (
-                        task.description is not None and description in task.description
-                    )
-                )
-                and (status is None or status in task.status.value)
-            )
-        }
+    ) -> list[DBTask]:
+        return []
 
-    def delete(self, task_id: int, /) -> Task | None:
-        return self.__db.pop(task_id)
+    def delete(self, task_id: str, /) -> DBTask | None:
+        db_task = collection.find_one_and_delete({"_id": ObjectId(task_id)})
+        if db_task is not None:
+            db_task["_id"] =  str(db_task["_id"])
+            db_task = DBTask.model_validate(db_task)
+        return db_task
 
-    def update(self, task_id: int, update_task: UpdateTask, /) -> Task | None:
-        task_db = self.get(task_id)
-        if task_db:
-            task_db.model_copy(update=update_task.model_dump(exclude_none=True))
-
-        return task_db
+    def update(self, task_id: str, update_task: UpdateTask, /) -> None:
+        collection.update({"_id": ObjectId(task_id)}, {"$set":update_task.model_dump(exclude_none=True, exclude_unset=True)})
