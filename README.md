@@ -35,7 +35,7 @@ retorno comum
 ```json
 {
   "title": "string"
-  "description": "string" | null
+  "description": "string"
   "status": "TO DO" | "IN PROGRESS" | "COMPLETED"
   "id": "string"
 }
@@ -77,7 +77,7 @@ exemplo de resposta:
 ```json
 {
   "title": "string"
-  "description": "string" | null
+  "description": "string"
   "status": "TO DO" | "IN PROGRESS" | "COMPLETED"
   "id": "string"
 }
@@ -121,7 +121,7 @@ exemplo de resposta:
 ```json
 {
   "title": "string"
-  "description": "string" | null
+  "description": "string"
   "status": "TO DO" | "IN PROGRESS" | "COMPLETED"
   "id": "string"
 }
@@ -145,7 +145,7 @@ exemplo de resposta:
 ```json
 {
   "title": "string"
-  "description": "string" | null
+  "description": "string"
   "status": "TO DO" | "IN PROGRESS" | "COMPLETED"
   "id": "string"
 }
@@ -158,7 +158,7 @@ exemplo de resposta:
 ```json
 {
   "title": "string"
-  "description": "string" | null
+  "description": "string"
   "status": "TO DO" | "IN PROGRESS" | "COMPLETED"
   "id": "string"
 }
