@@ -3,11 +3,6 @@ from bson import ObjectId
 from app.models.TaskModel import DBTask, Task, UpdateTask
 from pymongo import MongoClient
 
-def id_gen():
-    id = 0
-    while True:
-        yield id
-        id += 1
 
 URI= "mongodb://root:12345@localhost:27017"
 client = MongoClient(URI)
@@ -16,8 +11,6 @@ collection = db['tesks']
 
 class DB:
     __db: dict[int, Task] = {}
-    __id = id_gen()
-
 
     def create(self, new_task: Task, /) -> str:
         result = collection.insert_one(new_task.model_dump())
@@ -44,7 +37,20 @@ class DB:
         description: str | None = None,
         status: str | None = None,
     ) -> list[DBTask]:
-        return []
+        return [
+            t
+            for t in self.get_all()
+            if (
+                (title is None or title in t.title)
+                and (
+                    description is None
+                    or (
+                        t.description is not None and description in t.description
+                    )
+                )
+                and (status is None or status in t.status.value)
+            )
+        ]
 
     def delete(self, task_id: str, /) -> DBTask | None:
         db_task = collection.find_one_and_delete({"_id": ObjectId(task_id)})
