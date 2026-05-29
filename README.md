@@ -33,6 +33,16 @@ evolução do **crud** do sprint 3
 validação dos dados com pydantic e modularização do sistema
 
 ---
+### [sprint 5](https://github.com/pedrohebert/curso_backend/tree/sprint5)
+
+utilizando mangodb para persistencia de dados via docker
+
+#### objetivos 
+
+- estudar uso de docker para execução de conteiner isolados
+- conectar com banco de dados não relacional
+
+---
 ## Observações
 
 Este repositório está em constante evolução, podendo receber novas funcionalidades, melhorias e novos projetos ao longo do tempo.
