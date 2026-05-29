@@ -11,7 +11,7 @@ class Status(str, Enum):
 
 class Task(BaseModel):
     title: str
-    description: str | None = None
+    description: str = Field(default="")
     status: Status = Field(default= Status.TO_DO)
 
 
