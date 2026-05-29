@@ -37,7 +37,7 @@ retorno comum
   "title": "string"
   "description": "string" | null
   "status": "TO DO" | "IN PROGRESS" | "COMPLETED"
-  "id": int
+  "id": "string"
 }
 ```
 
@@ -65,7 +65,7 @@ exemplo de resposta:
     "title": "string"
     "description": "string"
     "status": "TO DO" | "IN PROGRESS" | "COMPLETED"
-    "id": int
+    "id": "string"
   }
 ]
 ```
@@ -79,7 +79,7 @@ exemplo de resposta:
   "title": "string"
   "description": "string" | null
   "status": "TO DO" | "IN PROGRESS" | "COMPLETED"
-  "id": int
+  "id": "string"
 }
 ```
 
@@ -97,7 +97,7 @@ uma busca filtrada nos dados salvos, retorna uma lista de publicTasks
     "title": "string"
     "description": "string"
     "status": "TO DO" | "IN PROGRESS" | "COMPLETED"
-    "id": int
+    "id": "string"
   }
 ]
 ```
@@ -123,7 +123,7 @@ exemplo de resposta:
   "title": "string"
   "description": "string" | null
   "status": "TO DO" | "IN PROGRESS" | "COMPLETED"
-  "id": int
+  "id": "string"
 }
 ```
 
@@ -147,7 +147,7 @@ exemplo de resposta:
   "title": "string"
   "description": "string" | null
   "status": "TO DO" | "IN PROGRESS" | "COMPLETED"
-  "id": int
+  "id": "string"
 }
 ```
 
@@ -160,7 +160,7 @@ exemplo de resposta:
   "title": "string"
   "description": "string" | null
   "status": "TO DO" | "IN PROGRESS" | "COMPLETED"
-  "id": int
+  "id": "string"
 }
 ```
 
@@ -179,21 +179,26 @@ para mais informação, execute o projeto e acesse:
 ---
 
 1. clone o repositorio 
+
 ```bash
 git clone https://github.com/pedrohebert/curso_backend.git
 cd curso_backend
-git swicth sprint4
+git swicth sprint5
 ```
+
 ---
+
 ### crie e ative o habiente virtual
 
 #### uv (recomendado)
 
 2. Criar ambiente virtual e instalar dependências
+
 ```bash
 uv venv
 uv sync
 ```
+
 3. Ativar o ambiente
 
 Linux / Mac
@@ -210,20 +215,17 @@ Windows
 .venv\Scripts\activate
 ```
 
-4. Executar o servidor
-
-```bash
-uv run uvicorn app.main:app --reload
-```
 ---
 #### Executando com pip + venv
 
 método tradicional:
 
 2. Criar ambiente virtual
+
 ```bash
 python -m venv .venv
 ```
+
 3. Ativar o ambiente
 
 Linux / Mac
@@ -243,8 +245,8 @@ Windows
 3. Instalar dependências
 
 Se estiver usando requirements.txt:
-```bash
 
+```bash
 pip install -r requirements.txt
 ```
 
@@ -254,14 +256,46 @@ Ou, caso use pyproject.toml:
 pip install .
 ```
 
-4. Executar o servidor  
+---
 
+4. Executar o servidor
 
+### iniciando 
+#### uv
 ```bash
-uvicorn app.main:app --reload
+docker compose up -d
+uv run uvicorn app.main:app
 ```
 
+ou se possuir make
+
+```bash
+make run
+```
+
+#### sem uv 
+
+```bash
+docker compose up -d
+uvicorn app.main:app
+```
+
+### panrando
+
+```bash
+docker compose down 
+```
+
+>[!NOTE]
+> isso apenas desliga o banco de dados mantendo os dados
+> caso queira apagar o banco de dados execute 
+> ```bash
+> docker compose down -v
+> ```
+
+
 ---
+
 5. acessando  
 o serviço será hospedado em:  
 http://127.0.0.1:8000/docs
