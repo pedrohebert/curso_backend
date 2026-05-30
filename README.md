@@ -22,7 +22,7 @@ esse projeto é um conjunto de api em fastApi para armazenar em memória tasks.
 ```json
 {
   "title": "string"
-  "description": "string" | null
+  "description": "string"
   "status": "TO DO" |"IN PROGRESS" | "COMPLETED" | null
 }
 ```
@@ -108,7 +108,7 @@ exemplo de body:
 ```json
 {
   "title": "string"
-  "description": "string" | null
+  "description": "string"
   "status": "TO DO" | "IN PROGRESS" | "COMPLETED" | null
 }
 ```
